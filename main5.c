@@ -4,20 +4,12 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-void free_memory(void** newfilename, void** newWay, bool trully)
+void free_memory(void* newFN, void* newWay)
 {
-	if (trully)
-	{
-		free(*newfilename);
-		*newfilename = NULL;
-		free(*newWay);
-		*newWay = NULL;
-	}
-	else
-	{
-		free(*newWay);
-		*newWay = NULL;
-	}
+	free(newFN);
+	newFN = NULL;
+	free(newWay);
+	newWay = NULL;
 }
 
 int main(int arguments, char* arg[])
@@ -84,6 +76,7 @@ int main(int arguments, char* arg[])
 		}
 		strcpy(newWay, prefix);
 		strcat(newWay, filename);
+		newFN = (char*)malloc(sizeof(char));
 	}
 
 	if (strcmp(arg[1], "-fi") == 0)
@@ -114,7 +107,7 @@ int main(int arguments, char* arg[])
 						}
 						else
 						{
-							free_memory(newFN, newWay, is_here_way);
+							free_memory(newFN, newWay);
 							fclose(fileout);
 							fclose(file);
 							return 31;
@@ -146,7 +139,7 @@ int main(int arguments, char* arg[])
 				}
 				else
 				{
-					free_memory(newFN, newWay, is_here_way);
+					free_memory(newFN, newWay);
 					fclose(fileout);
 					fclose(file);
 					return 3;
@@ -155,7 +148,7 @@ int main(int arguments, char* arg[])
 			}
 			else
 			{
-				free_memory(newFN, newWay, is_here_way);
+				free_memory(newFN, newWay);
 				fclose(file);
 				return 2;
 			}
@@ -163,7 +156,7 @@ int main(int arguments, char* arg[])
 		}
 		else
 		{
-			free_memory(newFN, newWay, is_here_way);
+			free_memory(newFN, newWay);
 			return 1;
 		}
 		fclose(file);
@@ -193,7 +186,7 @@ int main(int arguments, char* arg[])
 				}
 				else
 				{
-					free_memory(newFN, newWay, is_here_way);
+					free_memory(newFN, newWay);
 					fclose(file);
 					return 2;
 				}
@@ -201,7 +194,7 @@ int main(int arguments, char* arg[])
 			}
 			else
 			{
-				free_memory(newFN, newWay, is_here_way);
+				free_memory(newFN, newWay);
 				return 2;
 			}
 			fclose(file);
@@ -227,7 +220,7 @@ int main(int arguments, char* arg[])
 					}
 					else
 					{
-						free_memory(newFN, newWay, is_here_way);
+						free_memory(newFN, newWay);
 						fclose(file);
 						return 3;
 					}
@@ -235,20 +228,20 @@ int main(int arguments, char* arg[])
 				}
 				else
 				{
-					free_memory(newFN, newWay, is_here_way);
+					free_memory(newFN, newWay);
 					return 2;
 				}
 				fclose(file);
 			}
 			else
 			{
-				free_memory(newFN, newWay, is_here_way);
+				free_memory(newFN, newWay);
 				return 1;
 			}
 		}
 	}
 	else
 		printf("Invalid command line argument");
-	free_memory(newFN, newWay, is_here_way);
+	free_memory(newFN, newWay);
 	return 0;
 }
